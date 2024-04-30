@@ -1,0 +1,94 @@
+# parameter  value
+
+
+FROM  # It's a mandatory Parameter.it basically provide referance of base Image.it can come serveral times, but only  in case of multi staging build. registry url/ImageName
+
+MAINTAINER    # Who is author or who created this dockerfile. it's a optional.
+
+
+RUN           # It basically executes software installation commands.it can write multiple times but not recommended because it increases image commit layer.
+
+# Note: it creates caching history.
+# cashing provides faster execution to create a docker images.it does not build 
+#  step those have been completed.
+#  if you delete caching history then docker now it generates new images from scrach.
+#
+#
+############## what are the dangling Images ######################
+#
+# docker system prune: It terminates all types dangling images.
+# Dangling: the image which are not lates, which are not taged with name.
+# docker system prune -a: it deletes all unused + dangle
+#
+# Unused Image: the images which is not associate with any containers.
+#
+# docker builder prune: it deletes the cache history.
+#
+############# How to use Dangle images later ########################
+#
+# docker tag ImageID  apache:old
+#
+# 
+ADD           # it copies from Local/Remote URL both while copy does not
+              # it supports d-compression method while copy does not
+              # it copies data + source permission as well while copy does not.
+
+
+COPY          # copy copies only local data into container.     
+
+ENV           # it basically uses to declair any variable . call $(variable)
+              # server times can be defined.
+              # it can't does not generate.
+              # At the creating  container time we can declare or override the env.
+              # docker exec -itd --name=test imagename -e proxy_ip:_____
+              #
+
+
+WORKDIR       # Relative Path/Absolute Path: it changes your current working directory.        
+              # we can use workdir serveral times in a Dockerfile.
+
+VOLUME        # docker volume ls, statefull application and stateless application.
+
+
+EXPOSE        # -P is used to dynamic port to map with container port. 
+              # docker run -itd --name=web -P nginx           
+              #  but Dockerfile should have a expose the port.
+              #  if we don't give expose parameter to Dockerfile it will not do dynamic port forwarding.
+              #  
+
+
+USER          #  root mode privilage container vs non root privilage  mode container thatcontainer execute from root that is called root mode cotainer and which does have owner privilage of non root account that is called non root mode
+              #  
+              #
+              
+
+CMD           # it executes the instruction during container boot-up time.
+              # process start related commands.
+              # RUN vs CMD 
+              # RUN: It executes instruction one time not always, when we build the images.
+              # it create commit layer. 
+              # after image creation there is no meaning of run values.
+              # when you are building image that time cmd does not execute.
+              # after deploy container, cmd executes the command which define in cmd parameter.
+              # ["/usr/sbin/httpd -D FOREGROUND"]
+              # COMMAND MODE VS SHELL MODE
+              #
+              # /usr/sbin/httpd -D FOREGROUND is SHELL MODE execution.
+              # ["/usr/sbin/httpd", "-D" ,"FOREGROUND"]   is CMD MODE execution.
+              # -d option = CMD values inject: cmd process
+              # -it option = bash process behalf              
+              # we can't write cmd  multiple times.
+
+ENTERYPOINT   # enterypoint value can't not overwrite while CMD value can be overwritten. 
+              # ENTERYPOINT can read cmd  value as arguments. if we use both at a time.
+
+
+ARG           # it only can use image build time, after creation image variable value will be null. it's temp variables.
+
+
+              # docker built -t arvind . --build-arg=PROXY_IP=http://192.168.0.1         
+
+multi-staging # multiple images can be created from same  Dockerfile.      
+              # we can copy data/artifactory from one stage to another stage.
+
+
