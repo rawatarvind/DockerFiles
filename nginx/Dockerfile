@@ -6,7 +6,7 @@ RUN apt update -y && \
     mkdir -p /etc/nginx/site-enabled
 
 WORKDIR /var/www/tutorial
-COPY index.html .
+COPY nginx/index.html .
 
 WORKDIR /
 
