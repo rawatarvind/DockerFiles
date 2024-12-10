@@ -10,7 +10,7 @@ COPY index.html .
 
 WORKDIR /
 
-COPY site /etc/nginx/sites-enabled/
+COPY  nginx/site /etc/nginx/sites-enabled/
 
 EXPOSE 81
 
